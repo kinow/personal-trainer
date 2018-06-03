@@ -11,9 +11,10 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/semantic/dist/semantic.min.css">
   </head>
   <body style="background-color: #EEEEEE;">
-    <div id="app" class="ui container">
-      <br/>
-      <br/>
+    <div id="app" class="ui grid">
+      <div class="ui active dimmer" id="loader">
+        <div class="ui text loader">Loading</div>
+      </div>
       <form class="ui form">
         <div class="inline fields">
           <div class="field">
@@ -25,8 +26,6 @@
           </button>
         </div>
       </form>
-      <br/>
-      <br/>
       <div class="ui cards">
         <div class="card" v-for="video in videos" v-bind:todo="video">
           <div class="image">
@@ -49,6 +48,12 @@
         </div>
       </div>
     </div>
+    <style>
+    body {
+      margin: 30px;
+      background-color: whitesmoke;
+    }
+    </style>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/moment/min/moment.min.js"></script>
     <script src="/bower_components/semantic/dist/semantic.min.js"></script>
@@ -82,6 +87,7 @@
     // shuffle videos and update vue obj
     function shufflevideos() {
       $("#shuffle-button").addClass('loading');
+      $("#loader").addClass('active');
       $(".card").remove();
       app.json.forEach(function(category) {
         //console.log("Found category '" + category.snippet.title + "'");
@@ -93,7 +99,10 @@
         });
         //app.videos = app.videos.concat(random2videos);
       });
-      $("#shuffle-button").removeClass('loading');
+      setTimeout(function () {
+        $("#shuffle-button").removeClass('loading');
+        $("#loader").removeClass('active');
+      }, 300);
     }
 
     $( document ).ready(function() {
