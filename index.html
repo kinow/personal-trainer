@@ -30,7 +30,9 @@
       <div class="ui cards">
         <div class="card" v-for="video in videos" v-bind:todo="video">
           <div class="image">
-            <img v-bind:src="video.snippet.thumbnails.medium.url">
+            <a v-bind:href="'https://www.youtube.com/watch?v=' + video.snippet.resourceId.videoId">
+              <img style="border: none; width: 100%; display: block; height: auto; border-radius: inherit;" v-bind:src="video.snippet.thumbnails.medium.url">
+            </a>
           </div>
           <div class="content">
             <div class="header">{{ video.snippet.title }}</div>
